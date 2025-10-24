@@ -1,0 +1,86 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: otsugua
+  labels:
+    istio-injection: enable
+  
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mi-app-otsugua
+  namespace: otsugua
+  labels:
+    app: mi-app-otsugua
+    areanegocio: tecnologia
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mi-app-otsugua
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: mi-app-otsugua
+    spec:
+      containers:
+      - name: mi-app-container
+        image: otsugua04/hola-mundo-service1:3
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: 500m
+            memory: 500Mi
+          limits:
+            cpu: 800m
+            memory: 1500Mi
+        envFrom:
+            - configMapRef:
+                name: mi-configmap-otsugua
+            - secretRef:
+                name: mi-secret-otsugua
+            
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mi-servicio-otsugua
+  namespace: otsugua
+spec:
+  selector:
+    app: mi-app-otsugua
+  ports:
+    - protocol: TCP
+      port: 4000
+      targetPort: 3000
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mi-configmap-otsugua
+  namespace: otsugua
+data:
+    DATABASE: "192.168.1.1"
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mi-secret-otsugua
+  namespace: otsugua
+type: Opaque
+data:
+    PASSWORD: cGFzc3dvcmRwcnVlYmE=

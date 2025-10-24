@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  # El nombre que usarás para referenciar esta ServiceAccount
+  name: otsugua-cicd-serviceaccount-srv2
+  # Opcional: El namespace donde se creará. Si se omite, se usará 'default'.
+  namespace: otsugua04-dev
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: otsugua-cicd-role-binding-srv2
+  namespace: otsugua04-dev
+subjects:
+- kind: ServiceAccount
+  name: otsugua-cicd-serviceaccount-srv2
+  namespace: otsugua04-dev
+roleRef:
+  kind: ClusterRole
+  name: edit
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: otsugua-cicd-role-binding-srv2
+  namespace: otsugua04-dev
+subjects:
+- kind: ServiceAccount
+  name: otsugua-cicd-serviceaccount-srv2
+  namespace: otsugua04-dev
+roleRef:
+  kind: Role
+  name: rbac-edit
+  apiGroup: rbac.authorization.k8s.io
