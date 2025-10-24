@@ -106,7 +106,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: otsugua-pvc2-srv2
+  name: otsugua-pvc-srv2
   namespace: otsugua04-dev
 spec:
   accessModes:
