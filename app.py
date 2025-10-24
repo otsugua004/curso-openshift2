@@ -9,7 +9,7 @@ def llamar_servicio(nombre):
     try:
         respuesta = requests.get(url_objetivo)
         datos = respuesta.json()
-        return jsonify(datos)
+        return f'[Servicio 2] Respuesta del servicio 1: , {datos}!'
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
