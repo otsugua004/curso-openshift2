@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 import requests
 
 app = Flask(__name__)
@@ -10,10 +10,10 @@ def llamar_servicio():
 
     try:
         respuesta = requests.get(url_objetivo)
-        datos = respuesta.json()
-        return jsonify(datos)
+        return respuesta.text
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return f"Error al llamar al servicio 1: {str(e)}", 500
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000)
