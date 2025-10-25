@@ -7,7 +7,7 @@ WORKDIR /app
 RUN pip install --upgrade pip
 
 # Instala Flask
-RUN pip install flask
+RUN pip install flask requests
 
 RUN chown -R appuser:appgroup /app
 
