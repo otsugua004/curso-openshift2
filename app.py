@@ -3,8 +3,9 @@ import requests
 
 app = Flask(__name__)
 
-@app.route('/saludo/<nombre>')
-def llamar_servicio(nombre):
+@app.route('/saludo', methods=['GET'])
+def llamar_servicio():
+    nombre = request.args.get('nombre', 'Mundo')
     url_objetivo = f'http://otsugua-otsugua04-dev.apps.rm2.thpm.p1.openshiftapps.com/saludo?nombre={nombre}'  # Reemplaza con tu API real
     try:
         respuesta = requests.get(url_objetivo)
