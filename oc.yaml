@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: mi-app-container
-        image: otsugua04/hola-mundo-service2:1
+        image: otsugua04/hola-mundo-service2:build-{{ tag }} 
         ports:
         - containerPort: 3000
         resources:
