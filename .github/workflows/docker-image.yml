@@ -65,10 +65,10 @@ jobs:
       - name: Update Deployment tag
         run: |
           echo "Reemplazando {{ tag }} con ${{ github.run_number }}"
-          sed -i "s|{{ tag }}|${{ github.run_number }}|g" values.yaml
+          sed -i "s|{{ tag }}|${{ github.run_number }}|g" oc.yaml
           cat values.yaml
 
       - name: Deploy files
         run: |
-          helm show chart oci://registry-1.docker.io/otsugua04/mi-chart --version 4
-          helm upgrade --install microservicio-2 oci://registry-1.docker.io/otsugua04/mi-chart --version 4 --values values.yaml
+          helm show chart oci://registry-1.docker.io/otsugua04/mi-chart --version 6
+          helm upgrade --install microservicio-2 oci://registry-1.docker.io/otsugua04/mi-chart --version 6 --values values.yaml
