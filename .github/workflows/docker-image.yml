@@ -66,6 +66,5 @@ jobs:
 
       - name: Deploy files
         run: |
-          oc project otsugua04-dev
-          oc apply -f oc.yaml
-          oc rollout status deployment/mi-app-otsugua
+          helm show chart oci://registry-1.docker.io/otsugua04/mi-chart --version 4
+          helm upgrade --install microservicio-2 oci://registry-1.docker.io/otsugua04/mi-chart --version 4 --values values.yaml
