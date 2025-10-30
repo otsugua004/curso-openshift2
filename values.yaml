@@ -3,7 +3,7 @@ name: microservicio-2
 namespace: otsugua04-dev
 
 container:
-  tag: "{{ tag }}"
+  tag: "build-{{ tag }}"
   port: 3000
   image: "otsugua04/hola-mundo-service2"
   replicas: 2
